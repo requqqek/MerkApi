@@ -1,0 +1,224 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sergs\\source\\repos\\MerkApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\dtos\\updateuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\dtos\\updateuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\dtos\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\dtos\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\services\\passwordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\services\\passwordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|c:\\users\\sergs\\source\\repos\\merkapi\\merkapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3FE3357D-54D4-D0F9-C1A5-E35E18BA627B}|MerkApi\\MerkApi.csproj|solutionrelative:merkapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 243,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "MerkApi\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\WeatherForecast.cs",
+              "RelativeToolTip": "MerkApi\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T22:37:16.083Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UpdateUserDto.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\UpdateUserDto.cs",
+              "RelativeDocumentMoniker": "MerkApi\\DTOs\\UpdateUserDto.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\UpdateUserDto.cs",
+              "RelativeToolTip": "MerkApi\\DTOs\\UpdateUserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T21:53:02.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "MerkApi\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "MerkApi\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T21:51:40.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Program.cs",
+              "RelativeDocumentMoniker": "MerkApi\\Program.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Program.cs",
+              "RelativeToolTip": "MerkApi\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T21:07:04.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Services\\JwtService.cs",
+              "RelativeDocumentMoniker": "MerkApi\\Services\\JwtService.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Services\\JwtService.cs",
+              "RelativeToolTip": "MerkApi\\Services\\JwtService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T21:06:32.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PasswordService.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Services\\PasswordService.cs",
+              "RelativeDocumentMoniker": "MerkApi\\Services\\PasswordService.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Services\\PasswordService.cs",
+              "RelativeToolTip": "MerkApi\\Services\\PasswordService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T21:06:15.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\UserResponseDto.cs",
+              "RelativeDocumentMoniker": "MerkApi\\DTOs\\UserResponseDto.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\UserResponseDto.cs",
+              "RelativeToolTip": "MerkApi\\DTOs\\UserResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-13T21:03:25.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\appsettings.json",
+              "RelativeDocumentMoniker": "MerkApi\\appsettings.json",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\appsettings.json",
+              "RelativeToolTip": "MerkApi\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-13T20:57:36.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\LoginDto.cs",
+              "RelativeDocumentMoniker": "MerkApi\\DTOs\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\LoginDto.cs",
+              "RelativeToolTip": "MerkApi\\DTOs\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T20:33:56.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RegisterDto.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\RegisterDto.cs",
+              "RelativeDocumentMoniker": "MerkApi\\DTOs\\RegisterDto.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\DTOs\\RegisterDto.cs",
+              "RelativeToolTip": "MerkApi\\DTOs\\RegisterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T20:32:58.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "MerkApi\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "MerkApi\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T20:28:48.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Models\\User.cs",
+              "RelativeDocumentMoniker": "MerkApi\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\sergs\\source\\repos\\MerkApi\\MerkApi\\Models\\User.cs",
+              "RelativeToolTip": "MerkApi\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-07T20:27:49.085Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
