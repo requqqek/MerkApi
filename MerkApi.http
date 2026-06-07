@@ -1,0 +1,6 @@
+@MerkApi_HostAddress = http://localhost:5109
+
+GET {{MerkApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
