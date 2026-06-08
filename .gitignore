@@ -1,0 +1,28 @@
+# Скомпилированные файлы
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+# База данных
+*.db
+*.db-shm
+*.db-wal
+
+# Visual Studio
+*.user
+*.suo
+.vs/
+
+# NuGet
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# Rider / ReSharper
+.idea/
+*.sln.iml
+
+# OS
+.DS_Store
+Thumbs.db
