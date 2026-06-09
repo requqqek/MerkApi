@@ -1,86 +1,96 @@
-﻿// Путь: MerkApi/Controllers/TeacherController.cs
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MerkApi.Data;
 using MerkApi.DTOs;
-using MerkApi.Models;
+using MerkApi.Services;
 
-namespace MerkApi.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class TeacherController : ControllerBase
+namespace MerkApi.Controllers
 {
-    private readonly AppDbContext _context;
-
-    public TeacherController(AppDbContext context)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TeacherController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly AppDbContext _context;
+        private readonly CryptoService _cryptoService;
 
-    /// <summary>
-    /// Получить все попытки сдачи заданий с фильтрацией.
-    /// </summary>
-    [HttpGet("submissions")]
-    public async Task<ActionResult<IEnumerable<SubmissionDto>>> GetSubmissions(
-        [FromQuery] int? studentId = null,
-        [FromQuery] int? groupId = null)
-    {
-        var query = _context.Submissions
-            .Include(s => s.User)
-            .ThenInclude(u => u.Group)
-            .Include(s => s.Assignment)
-            .AsQueryable();
-
-        if (studentId.HasValue)
+        public TeacherController(AppDbContext context, CryptoService cryptoService)
         {
-            query = query.Where(s => s.UserId == studentId.Value);
+            _context = context;
+            _cryptoService = cryptoService;
         }
 
-        if (groupId.HasValue)
+        [HttpGet("submissions")]
+        public async Task<ActionResult<IEnumerable<SubmissionDto>>> GetSubmissions(
+            [FromQuery] int? studentId = null,
+            [FromQuery] int? groupId = null,
+            [FromQuery] int? teacherId = null)
         {
-            query = query.Where(s => s.User.GroupId == groupId.Value);
+            var query = _context.Submissions
+                .Include(s => s.User)
+                    .ThenInclude(u => u!.Group)
+                .Include(s => s.Assignment)
+                .AsQueryable();
+
+            if (studentId.HasValue)
+                query = query.Where(s => s.UserId == studentId.Value);
+
+            if (groupId.HasValue)
+                query = query.Where(s => s.User!.GroupId == groupId.Value);
+
+            if (teacherId.HasValue)
+            {
+                var studentIds = await _context.TeacherStudents
+                    .Where(ts => ts.TeacherId == teacherId.Value)
+                    .Select(ts => ts.StudentId)
+                    .ToListAsync();
+                query = query.Where(s => studentIds.Contains(s.UserId));
+            }
+
+            var result = await query
+                .OrderByDescending(s => s.SubmittedAt)
+                .Select(s => new SubmissionDto
+                {
+                    Id = s.Id,
+                    UserId = s.UserId,
+                    AssignmentId = s.AssignmentId,
+                    StudentAnswer = s.StudentAnswer,
+                    Grade = s.Grade,
+                    MaxGrade = s.MaxGrade,
+                    Comment = s.Comment,
+                    StudentLogin = s.User!.Login,
+                    AssignmentTitle = s.Assignment!.Title,
+                    SubmittedAt = s.SubmittedAt.ToString("yyyy-MM-ddTHH:mm:ssZ")
+                })
+                .ToListAsync();
+
+            return result;
         }
 
-        var submissions = await query
-            .OrderByDescending(s => s.SubmittedAt)
-            .Select(s => new SubmissionDto
-            {
-                Id = s.Id,
-                UserId = s.UserId,
-                AssignmentId = s.AssignmentId,
-                StudentAnswer = s.StudentAnswer,
-                Grade = s.Grade,
-                Comment = s.Comment,
-                SubmittedAt = s.SubmittedAt.ToString("yyyy-MM-ddTHH:mm:ssZ"),
-                StudentLogin = s.User.Login,
-                AssignmentTitle = s.Assignment.Title
-            })
-            .ToListAsync();
+        [HttpGet("students")]
+        public async Task<ActionResult<IEnumerable<StudentDto>>> GetTeacherStudents([FromQuery] int? teacherId = null)
+        {
+            var query = _context.TeacherStudents
+                .Include(ts => ts.Student)
+                    .ThenInclude(u => u!.Group)
+                .AsQueryable();
 
-        return Ok(submissions);
-    }
+            if (teacherId.HasValue)
+                query = query.Where(ts => ts.TeacherId == teacherId.Value);
 
-    /// <summary>
-    /// Получить список студентов, привязанных к преподавателям.
-    /// </summary>
-    [HttpGet("students")]
-    public async Task<ActionResult<IEnumerable<StudentDto>>> GetTeacherStudents()
-    {
-        var students = await _context.TeacherStudents
-            .Include(ts => ts.Student)
-            .ThenInclude(u => u.Group)
-            .Select(ts => new StudentDto
+            var list = await query.ToListAsync();
+
+            // Расшифровываем ПДн для отображения преподавателю
+            var result = list.Select(ts => new StudentDto
             {
-                UserId = ts.Student.Id,
+                UserId = ts.Student!.Id,
                 Login = ts.Student.Login,
-                Email = ts.Student.Email,
-                Phone = ts.Student.Phone,
+                Email = _cryptoService.Decrypt(ts.Student.Email),
+                Phone = _cryptoService.Decrypt(ts.Student.Phone),
                 GroupId = ts.Student.GroupId,
-                GroupName = ts.Student.Group != null ? ts.Student.Group.Name : null
-            })
-            .ToListAsync();
+                GroupName = ts.Student.Group?.Name
+            }).ToList();
 
-        return Ok(students);
+            return result;
+        }
     }
 }

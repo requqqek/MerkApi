@@ -1,29 +1,26 @@
-using MerkApi.Data;
-using MerkApi.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MerkApi.Data;
+using MerkApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Добавляем сервисы
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Подключение к SQLite (ИСПРАВЛЕНО!)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=diplom.db"));
 
-builder.Services.AddScoped<AssignmentChecker>();
+// Сервисы
+builder.Services.AddSingleton<PasswordService>();
+builder.Services.AddSingleton<CryptoService>();
+builder.Services.AddSingleton<JwtService>();
 
-// Регистрируем сервисы
-builder.Services.AddScoped<PasswordService>();
-builder.Services.AddScoped<JwtService>();
-
-// JWT аутентификация
-var jwtSecret = builder.Configuration["JwtSettings:Secret"] ?? "YourSuperSecretKeyForMerkApi2024VeryLongSecretKey123456";
+var jwtSecret = builder.Configuration["JwtSettings:Secret"]
+    ?? "my_super_secret_key_12345_minimum_32_chars_long!!!";
 var key = Encoding.UTF8.GetBytes(jwtSecret);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -41,30 +38,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// Разрешаем CORS для Android
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAndroid", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
 var app = builder.Build();
 
-// Создаём базу данных
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dbContext.Database.EnsureCreated();
 
-    // Заполняем тестовыми данными
-    MerkApi.Data.DbSeeder.Seed(dbContext);
+    var passwords = scope.ServiceProvider.GetRequiredService<PasswordService>();
+    var crypto = scope.ServiceProvider.GetRequiredService<CryptoService>();
+    DbSeeder.Seed(dbContext, passwords, crypto);
 }
 
-// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -75,5 +66,4 @@ app.UseCors("AllowAndroid");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

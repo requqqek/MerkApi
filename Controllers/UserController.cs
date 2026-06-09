@@ -2,91 +2,86 @@
 using Microsoft.EntityFrameworkCore;
 using MerkApi.Data;
 using MerkApi.DTOs;
+using MerkApi.Services;
 
-namespace MerkApi.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : ControllerBase
+namespace MerkApi.Controllers
 {
-    private readonly AppDbContext _context;
-
-    public UserController(AppDbContext context)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly AppDbContext _context;
+        private readonly PasswordService _passwordService;
+        private readonly CryptoService _cryptoService;
 
-    [HttpGet("profile")]
-    public async Task<ActionResult<UserProfileDto>> GetProfile([FromQuery] int userId)
-    {
-        var user = await _context.Users
-            .Include(u => u.Group)
-            .FirstOrDefaultAsync(u => u.Id == userId);
-
-        if (user == null)
+        public UserController(AppDbContext context, PasswordService passwordService, CryptoService cryptoService)
         {
-            return NotFound(new { message = "Пользователь не найден" });
+            _context = context;
+            _passwordService = passwordService;
+            _cryptoService = cryptoService;
         }
 
-        var profile = new UserProfileDto
+        [HttpGet("profile")]
+        public async Task<ActionResult<UserProfileDto>> GetProfile([FromQuery] int userId)
         {
-            UserId = user.Id,
-            Login = user.Login,
-            Email = user.Email,
-            Phone = user.Phone,
-            Role = user.Role,
-            GroupId = user.GroupId,
-            GroupName = user.Group?.Name
-        };
+            var user = await _context.Users.Include(u => u.Group).FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null) return NotFound();
 
-        return Ok(profile);
-    }
-
-    [HttpPut("profile")]
-    public async Task<ActionResult<UserProfileDto>> UpdateProfile(UpdateProfileRequest request, [FromQuery] int userId)
-    {
-        var user = await _context.Users.Include(u => u.Group).FirstOrDefaultAsync(u => u.Id == userId);
-        if (user == null)
-        {
-            return NotFound(new { message = "Пользователь не найден" });
+            return new UserProfileDto
+            {
+                UserId = user.Id,
+                Login = user.Login,
+                Email = _cryptoService.Decrypt(user.Email),
+                Phone = _cryptoService.Decrypt(user.Phone),
+                Role = user.Role,
+                GroupId = user.GroupId,
+                GroupName = user.Group?.Name
+            };
         }
 
-        if (request.Email != null)
-            user.Email = request.Email;
-
-        if (request.Phone != null)
-            user.Phone = request.Phone;
-
-        if (request.Password != null && request.Password.Length >= 6)
-            user.Password = request.Password;
-
-        await _context.SaveChangesAsync();
-
-        var profile = new UserProfileDto
+        [HttpPut("profile")]
+        public async Task<ActionResult<UserProfileDto>> UpdateProfile(UpdateProfileRequest request, [FromQuery] int userId)
         {
-            UserId = user.Id,
-            Login = user.Login,
-            Email = user.Email,
-            Phone = user.Phone,
-            Role = user.Role,
-            GroupId = user.GroupId,
-            GroupName = user.Group?.Name
-        };
+            var user = await _context.Users.Include(u => u.Group).FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null) return NotFound();
 
-        return Ok(profile);
-    }
+            if (request.Email != null) user.Email = _cryptoService.Encrypt(request.Email);
+            if (request.Phone != null) user.Phone = _cryptoService.Encrypt(request.Phone);
+            if (!string.IsNullOrWhiteSpace(request.Password))
+            {
+                if (request.Password.Length < 6) return BadRequest("Пароль должен содержать минимум 6 символов");
+                user.Password = _passwordService.HashPassword(request.Password);
+            }
 
-    [HttpPut("change-password")]
-    public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
-    {
-        var user = await _context.Users.FindAsync(request.UserId);
-        if (user == null) return NotFound(new { message = "Пользователь не найден" });
-        if (user.Password != request.OldPassword) return BadRequest(new { message = "Неверный старый пароль" });
-        if (string.IsNullOrWhiteSpace(request.NewPassword) || request.NewPassword.Length < 6)
-            return BadRequest(new { message = "Пароль минимум 6 символов" });
+            await _context.SaveChangesAsync();
 
-        user.Password = request.NewPassword;
-        await _context.SaveChangesAsync();
-        return Ok(new { message = "Пароль изменён" });
+            return new UserProfileDto
+            {
+                UserId = user.Id,
+                Login = user.Login,
+                Email = _cryptoService.Decrypt(user.Email),
+                Phone = _cryptoService.Decrypt(user.Phone),
+                Role = user.Role,
+                GroupId = user.GroupId,
+                GroupName = user.Group?.Name
+            };
+        }
+
+        [HttpPut("change-password")]
+        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            var user = await _context.Users.FindAsync(request.UserId);
+            if (user == null) return NotFound();
+
+            if (!_passwordService.VerifyPassword(request.OldPassword, user.Password))
+                return BadRequest("Старый пароль неверный");
+
+            if (string.IsNullOrWhiteSpace(request.NewPassword) || request.NewPassword.Length < 6)
+                return BadRequest("Новый пароль должен содержать минимум 6 символов");
+
+            user.Password = _passwordService.HashPassword(request.NewPassword);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

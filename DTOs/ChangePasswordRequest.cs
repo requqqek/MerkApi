@@ -1,8 +1,9 @@
-﻿namespace MerkApi.DTOs;
-
-public class ChangePasswordRequest
+﻿namespace MerkApi.DTOs
 {
-    public int UserId { get; set; }
-    public string OldPassword { get; set; } = string.Empty;
-    public string NewPassword { get; set; } = string.Empty;
+    public class ChangePasswordRequest
+    {
+        public int UserId { get; set; }
+        public string OldPassword { get; set; } = string.Empty;
+        public string NewPassword { get; set; } = string.Empty;
+    }
 }
