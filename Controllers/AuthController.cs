@@ -14,15 +14,18 @@ namespace MerkApi.Controllers
         private readonly AppDbContext _context;
         private readonly PasswordService _passwordService;
         private readonly CryptoService _cryptoService;
+        private readonly IConfiguration _config;
 
         private const int MaxFailedAttempts = 5;
         private static readonly TimeSpan LockoutDuration = TimeSpan.FromMinutes(15);
 
-        public AuthController(AppDbContext context, PasswordService passwordService, CryptoService cryptoService)
+        public AuthController(AppDbContext context, PasswordService passwordService,
+            CryptoService cryptoService, IConfiguration config)
         {
             _context = context;
             _passwordService = passwordService;
             _cryptoService = cryptoService;
+            _config = config;
         }
 
         [HttpPost("login")]
@@ -70,12 +73,8 @@ namespace MerkApi.Controllers
         {
             if (string.IsNullOrWhiteSpace(request.Login))
                 return BadRequest("Введите логин");
-
-            // Валидация email (если указан)
             if (!IsValidEmail(request.Email))
                 return BadRequest("Некорректный email. Пример: name@mail.ru");
-
-            // Валидация телефона (если указан)
             if (!IsValidPhone(request.Phone))
                 return BadRequest("Некорректный номер телефона");
 
@@ -131,7 +130,38 @@ namespace MerkApi.Controllers
             return Ok(new { userId = user.Id, login = user.Login });
         }
 
-        // Email необязателен; если указан — должен быть корректным
+        // НОВОЕ: создание преподавателя (только по админ-ключу)
+        [HttpPost("create-teacher")]
+        public async Task<ActionResult> CreateTeacher(CreateTeacherRequest request)
+        {
+            var adminKey = _config["Admin:Key"];
+            if (string.IsNullOrEmpty(adminKey) || request.AdminKey != adminKey)
+                return Unauthorized("Неверный админ-ключ");
+
+            if (string.IsNullOrWhiteSpace(request.Login))
+                return BadRequest("Введите логин");
+            if (!IsValidEmail(request.Email))
+                return BadRequest("Некорректный email");
+            if (string.IsNullOrWhiteSpace(request.Password) || request.Password.Length < 6)
+                return BadRequest("Пароль должен содержать минимум 6 символов");
+
+            if (await _context.Users.AnyAsync(u => u.Login == request.Login))
+                return BadRequest("Пользователь с таким логином уже существует");
+
+            var teacher = new User
+            {
+                Login = request.Login,
+                Password = _passwordService.HashPassword(request.Password),
+                Email = _cryptoService.Encrypt(request.Email),
+                Phone = _cryptoService.Encrypt(request.Phone),
+                Role = "Teacher"
+            };
+            _context.Users.Add(teacher);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { userId = teacher.Id, login = teacher.Login, role = teacher.Role });
+        }
+
         private static bool IsValidEmail(string? email)
         {
             if (string.IsNullOrWhiteSpace(email)) return true;
@@ -140,13 +170,9 @@ namespace MerkApi.Controllers
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email && email.Contains('@') && email.Contains('.');
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
-        // Телефон необязателен; если указан — минимум цифр
         private static bool IsValidPhone(string? phone)
         {
             if (string.IsNullOrWhiteSpace(phone)) return true;

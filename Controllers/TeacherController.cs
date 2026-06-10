@@ -92,5 +92,17 @@ namespace MerkApi.Controllers
 
             return result;
         }
-    }
+
+        [HttpDelete("students/{studentId}")]
+            public async Task<ActionResult> DeleteStudent(int studentId)
+            {
+                var user = await _context.Users.FindAsync(studentId);
+                if (user == null) return NotFound("Студент не найден");
+                if (user.Role != "Student") return BadRequest("Можно удалять только студентов");
+
+                _context.Users.Remove(user); // каскадом удалятся его попытки и привязка к учителю
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+        }
 }
